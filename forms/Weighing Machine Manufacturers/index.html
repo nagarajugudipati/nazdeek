@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weighing Machine Manufacturers - Nazdeek</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f5f5;
+}
+
+.header {
+    background: #7c3aed;
+    color: white;
+    padding: 15px 25px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 30px 50px;
+}
+
+.card {
+    width: 100%;
+    max-width: 850px;
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.banner {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 16px;
+    margin-bottom: 25px;
+}
+
+.banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.banner-content {
+    position: absolute;
+    left: 30px;
+    bottom: 25px;
+    color: white;
+}
+
+.service-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.service-icon {
+    width: 55px;
+    height: 55px;
+    background: white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+}
+
+.service-title {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.service-subtitle {
+    font-size: 15px;
+}
+
+.rating {
+    margin-top: 15px;
+    display: inline-block;
+    background: #22c55e;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 25px;
+    font-weight: bold;
+}
+
+.description {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 25px;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+}
+
+.field {
+    flex: 1;
+    margin-bottom: 16px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+textarea {
+    height: 100px;
+    resize: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #7c3aed;
+}
+
+.btn {
+    width: 100%;
+    background: #7c3aed;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #6d28d9;
+}
+
+.partner-footer {
+    margin: 1px auto 20px;
+    max-width: 850px;
+    background: linear-gradient(135deg, #6d28d9, #4c1d95);
+    border-radius: 25px;
+    padding: 35px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.partner-content h2 {
+    font-size: 36px;
+    margin: 15px 0;
+}
+
+.partner-content p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.partner-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 10px 18px;
+    border-radius: 25px;
+    font-weight: 600;
+}
+
+.partner-btn {
+    display: inline-block;
+    margin-top: 25px;
+    background: white;
+    color: #4c1d95;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 40px;
+    font-weight: bold;
+}
+
+.partner-rocket {
+    font-size: 80px;
+}
+
+.privacy-note {
+    text-align: center;
+    color: #6b7280;
+    font-size: 15px;
+    margin-top: 15px;
+    padding-top: 15px;
+}
+
+@media (max-width: 768px) {
+    .partner-footer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .partner-content h2 {
+        font-size: 24px;
+    }
+
+    .partner-content p {
+        font-size: 15px;
+    }
+
+    .partner-rocket {
+        font-size: 55px;
+    }
+
+    .row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .service-title {
+        font-size: 22px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">Nazdeek</div>
+
+<div class="container">
+<div class="card">
+
+<div class="banner">
+
+<img src="images/banner.jpg" alt="Weighing Machine Manufacturers">
+
+<div class="overlay"></div>
+
+<div class="banner-content">
+
+<div class="service-top">
+
+<div class="service-icon">
+🏭
+</div>
+
+<div>
+<div class="service-title">
+Weighing Machine Manufacturers
+</div>
+
+<div class="service-subtitle">
+Industrial, Commercial & Precision Weighing Solutions
+</div>
+</div>
+
+</div>
+
+<div class="rating">⭐ 4.8 (225)</div>
+
+</div>
+
+</div>
+
+<p class="description">
+Fill in a few details and we'll connect you with verified Weighing Machine Manufacturers near you. It's free — no obligation.
+</p>
+
+<form id="quoteForm" action="save_lead.php" method="POST">
+
+<div class="row">
+
+<div class="field">
+<label>Your Name *</label>
+<input type="text"
+id="name"
+name="name"
+pattern="[A-Za-z ]{2,50}"
+oninput="this.value=this.value.replace(/[^A-Za-z ]/g,'')"
+placeholder="Enter your name"
+required>
+</div>
+
+<div class="field">
+<label>Mobile *</label>
+<input type="tel"
+id="mobile"
+name="mobile"
+maxlength="10"
+pattern="[6-9][0-9]{9}"
+oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+placeholder="10-digit mobile"
+required>
+</div>
+
+</div>
+
+<div class="field">
+<label>Email (Optional)</label>
+<input type="email"
+id="email"
+name="email"
+placeholder="you@example.com">
+</div>
+
+<div class="row">
+
+<div class="field">
+<label>City *</label>
+<input type="text"
+id="city"
+name="city"
+pattern="[A-Za-z ]{2,50}"
+oninput="this.value=this.value.replace(/[^A-Za-z ]/g,'')"
+placeholder="e.g. Hyderabad"
+title="Enter a valid city name"
+required>
+</div>
+
+<div class="field">
+<label>PIN Code *</label>
+<input type="text"
+id="pincode"
+name="pincode"
+maxlength="6"
+pattern="[0-9]{6}"
+oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+placeholder="500001"
+required>
+</div>
+
+</div>
+
+<div class="field">
+<label>Area / Locality *</label>
+<input type="text"
+id="locality"
+name="locality"
+placeholder="Area, Landmark"
+required>
+</div>
+
+<div class="field">
+    <label>Machine Type *</label>
+    <select name="machine_type" required>
+        <option value="">Select Machine Type</option>
+        <option>Digital Weighing Scale</option>
+        <option>Industrial Scale</option>
+        <option>Platform Scale</option>
+        <option>Crane Scale</option>
+        <option>Laboratory Scale</option>
+        <option>Truck Weighbridge</option>
+        <option>Custom Weighing Machine</option>
+    </select>
+</div>
+<div class="field">
+    <label>Industry/Application *</label>
+    <select name="industry" required>
+        <option value="">Select Industry</option>
+        <option>Manufacturing</option>
+        <option>Warehouse</option>
+        <option>Logistics</option>
+        <option>Retail</option>
+        <option>Jewellery</option>
+        <option>Laboratory</option>
+        <option>Agriculture</option>
+    </select>
+</div>
+<div class="field">
+    <label>Custom Manufacturing Required *</label>
+    <select name="custom_manufacturing" required>
+        <option value="">Select Option</option>
+        <option>Yes</option>
+        <option>No</option>
+    </select>
+</div>
+
+<div class="field">
+    <label>Quantity Required *</label>
+    <input type="number" name="quantity" min="1" placeholder="Enter Quantity" required>
+</div>
+
+<div class="field">
+<label>Requirement Details *</label>
+<textarea
+id="requirements"
+name="requirements"
+placeholder="Describe machine type, capacity, quantity, industry application and custom requirements."
+required></textarea>
+</div>
+
+<div class="row">
+
+<div class="field">
+<label>Preferred Time</label>
+<select name="preferred_time">
+<option>Any Time</option>
+<option>Morning</option>
+<option>Afternoon</option>
+<option>Evening</option>
+</select>
+</div>
+
+<div class="field">
+<label>Budget (Optional)</label>
+<input type="number"
+id="budget"
+name="budget"
+min="0"
+placeholder="e.g. 50000">
+</div>
+
+</div>
+
+<button type="submit" class="btn">
+Get Free Quotes →
+</button>
+
+<div class="privacy-note">
+🔒 Your details are shared only with verified providers for this service.
+</div>
+
+</form>
+
+</div>
+</div>
+
+<div class="partner-footer">
+
+    <div class="partner-content">
+
+        <div class="partner-badge">
+            💜 BECOME A PARTNER
+        </div>
+
+        <h2>
+            List your business from ₹49 / 7 days
+        </h2>
+
+        <p>
+            Plans: ₹49 / 7d · ₹99 / 15d · ₹199 / 30d · +₹50 per 15 days · ₹1,299 / year (Best Value) · Street Vendors Free
+        </p>
+
+        <a href="#" class="partner-btn">
+            View Plans →
+        </a>
+
+    </div>
+
+    <div class="partner-rocket">
+        🚀
+    </div>
+
+</div>
+
+<script>
+document.getElementById("quoteForm").addEventListener("submit", function(e){
+
+    const name = document.getElementById("name").value.trim();
+    const mobile = document.getElementById("mobile").value.trim();
+    const pincode = document.getElementById("pincode").value.trim();
+
+    if(!/^[A-Za-z ]{2,50}$/.test(name)){
+        alert("Please enter a valid name.");
+        e.preventDefault();
+        return;
+    }
+
+    if(!/^[6-9][0-9]{9}$/.test(mobile)){
+        alert("Please enter a valid 10-digit mobile number.");
+        e.preventDefault();
+        return;
+    }
+
+    if(!/^[0-9]{6}$/.test(pincode)){
+        alert("Please enter a valid 6-digit PIN Code.");
+        e.preventDefault();
+        return;
+    }
+
+    alert("Form submitted successfully!");
+});
+</script>
+
+</body>
+</html>
