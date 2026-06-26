@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmt) {
             $stmt->bind_param("ssssssssssissd", $name, $mobile, $email, $city, $pincode, $locality, $belt_type, $belt_width, $belt_length, $industry, $quantity, $requirements, $preferred_time, $budget);
             if ($stmt->execute()) {
-                show_response_page(true, "Request sent", "Your enquiry for " . ucwords(str_replace('_',' ', $table_name)) . " has been received. A verified trader will reach out to you shortly.");
+                show_response_page(true, "Request sent!", "Your enquiry for " . ucwords(str_replace('_', ' ', preg_replace('/_leads$/', '', $table_name))) . " has been received. A verified provider will reach out to you shortly.");
             } else {
                 show_response_page(false, "Database Error", "Unable to save your request. Error: " . $stmt->error);
             }
@@ -135,11 +135,12 @@ function show_response_page($success, $title, $messages) {
         }
         $msg_html .= '</ul>';
     } else {
-        $msg_html = '<div class="success-box" style="background:none;border:none;font-size:24px;line-height:1.8;color:#334155;">' . htmlspecialchars($messages) . '</div>';
+        $msg_html = '<div class="success-box">' . htmlspecialchars($messages) . '</div>';
     }
-    
-    $status_icon = $success ? '✓' : '❌';
-    
+
+    $status_icon = $success ? '&check;' : '&#10060;';
+    $heading_class = $success ? 'success-title' : 'error-title';
+
     echo <<<HTML
 <!DOCTYPE html>
 <html lang="en">
@@ -148,155 +149,204 @@ function show_response_page($success, $title, $messages) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>$title - Nazdeek</title>
     <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
         body{
-    font-family:Arial,sans-serif;
-    background:#f5f5f5;
-    margin:0;
-}
+            background:#f5f5f5;
+            color:#1f2937;
+        }
 
-.header{
-    background: linear-gradient(90deg,#7c3aed,#6d28d9);
-    color:white;
-    padding:18px 20px;
-    display:flex;
-    align-items:center;
-    gap:14px;
-}
-.back-btn{
-    color:white;
-    text-decoration:none;
-    font-size:24px;
-}
+        .header{
+            background:linear-gradient(90deg,#7c3aed,#6d28d9);
+            color:white;
+            padding:18px 20px;
+            display:flex;
+            align-items:center;
+            gap:14px;
+        }
 
-.logo{
-    font-size:18px;
-    font-weight:700;
-}
+        .back-btn{
+            color:white;
+            text-decoration:none;
+            font-size:24px;
+            line-height:1;
+        }
 
-.container{
-    max-width:900px;
-    margin:30px auto;
-    padding:0 15px;
-}
+        .logo{
+            font-size:18px;
+            font-weight:700;
+        }
 
-.response-card{
-    background:#fff;
-    border-radius:20px;
-    padding:50px;
-    text-align:center;
-    box-shadow:0 4px 20px rgba(0,0,0,.08);
-}
+        .container{
+            max-width:900px;
+            margin:30px auto;
+            padding:0 15px;
+        }
 
-.icon{
-    width:90px;
-    height:90px;
-    margin:0 auto 25px;
-    background:#22c55e;
-    color:white;
-    border-radius:16px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:55px;
-    box-shadow:0 4px 15px rgba(34,197,94,.35);
-}
+        .response-card{
+            background:#fff;
+            border-radius:20px;
+            padding:50px;
+            text-align:center;
+            box-shadow:0 4px 20px rgba(0,0,0,.08);
+        }
 
+        .icon{
+            width:90px;
+            height:90px;
+            margin:0 auto 25px;
+            background:#22c55e;
+            color:white;
+            border-radius:16px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:55px;
+            box-shadow:0 4px 15px rgba(34,197,94,.35);
+        }
 
-h1{
-    color:#059669;
-    font-size:42px;
-    margin-bottom:20px;
-}
+        .error-title{
+            color:#db2777;
+        }
 
-.success-box{
-    color:#374151;
-    font-size:20px;
-    line-height:1.7;
-}
+        .success-title{
+            color:#059669;
+        }
 
-.message-list{
-    background:#fdf2f8;
-    border-left:4px solid #db2777;
-    padding:15px 15px 15px 35px;
-    border-radius:8px;
-    text-align:left;
-}
+        h1{
+            font-size:42px;
+            margin-bottom:20px;
+        }
 
-.button-group{
-    margin-top:30px;
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    flex-wrap:wrap;
-}
+        .success-box{
+            color:#374151;
+            font-size:20px;
+            line-height:1.7;
+        }
 
-.btn-primary{
-    background:#7c3aed;
-    color:white;
-    text-decoration:none;
-    padding:14px 28px;
-    border-radius:12px;
-    font-weight:bold;
-}
+        .message-list{
+            background:#fdf2f8;
+            border-left:4px solid #db2777;
+            padding:15px 15px 15px 35px;
+            border-radius:8px;
+            text-align:left;
+            color:#9d174d;
+            line-height:1.6;
+        }
 
-.btn-secondary{
-    border:2px solid #d8b4fe;
-    color:#6d28d9;
-    text-decoration:none;
-    padding:14px 28px;
-    border-radius:12px;
-    font-weight:bold;
-    background:white;
-}
+        .button-group{
+            margin-top:30px;
+            display:flex;
+            justify-content:center;
+            gap:15px;
+            flex-wrap:wrap;
+        }
 
-.partner-footer{
-    margin-top:25px;
-    background:linear-gradient(135deg,#7c3aed,#4c1d95);
-    border-radius:20px;
-    padding:30px;
-    color:white;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
+        .btn-primary{
+            background:#7c3aed;
+            color:white;
+            text-decoration:none;
+            padding:14px 28px;
+            border-radius:12px;
+            font-weight:bold;
+        }
 
-.partner-badge{
-    display:inline-block;
-    background:rgba(255,255,255,.15);
-    padding:8px 14px;
-    border-radius:20px;
-    margin-bottom:15px;
-    font-weight:bold;
-}
+        .btn-secondary{
+            border:2px solid #d8b4fe;
+            color:#6d28d9;
+            text-decoration:none;
+            padding:14px 28px;
+            border-radius:12px;
+            font-weight:bold;
+            background:white;
+        }
 
-.partner-footer h2{
-    margin-bottom:10px;
-}
+        .partner-footer{
+            margin-top:25px;
+            background:linear-gradient(135deg,#7c3aed,#4c1d95);
+            border-radius:20px;
+            padding:30px;
+            color:white;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:20px;
+        }
 
-.partner-footer p{
-    line-height:1.7;
-}
+        .partner-badge{
+            display:inline-block;
+            background:rgba(255,255,255,.15);
+            padding:8px 14px;
+            border-radius:20px;
+            margin-bottom:15px;
+            font-weight:bold;
+        }
 
-.partner-btn{
-    display:inline-block;
-    margin-top:20px;
-    background:white;
-    color:#5b21b6;
-    text-decoration:none;
-    padding:12px 24px;
-    border-radius:30px;
-    font-weight:bold;
-}
+        .partner-footer h2{
+            margin-bottom:10px;
+            font-size:28px;
+        }
 
-.partner-rocket{
-    font-size:80px;
-}
-</style>
+        .partner-footer p{
+            line-height:1.7;
+        }
+
+        .partner-btn{
+            display:inline-block;
+            margin-top:20px;
+            background:white;
+            color:#5b21b6;
+            text-decoration:none;
+            padding:12px 24px;
+            border-radius:30px;
+            font-weight:bold;
+        }
+
+        .partner-rocket{
+            font-size:80px;
+        }
+
+        @media (max-width:768px){
+            .container{
+                margin:20px auto;
+            }
+
+            .response-card{
+                padding:35px 20px;
+            }
+
+            h1{
+                font-size:32px;
+            }
+
+            .success-box{
+                font-size:17px;
+            }
+
+            .partner-footer{
+                flex-direction:column;
+                text-align:center;
+            }
+
+            .partner-footer h2{
+                font-size:24px;
+            }
+
+            .partner-rocket{
+                font-size:55px;
+            }
+        }
+    </style>
 </head>
 <body>
 
 <div class="header">
-    <a href="javascript:history.back()" class="back-btn">←</a>
+    <a href="javascript:history.back()" class="back-btn">&#8592;</a>
     <span class="logo">Nazdeek</span>
 </div>
 
@@ -306,7 +356,7 @@ h1{
 
         <div class="icon">$status_icon</div>
 
-        <h1>$title</h1>
+        <h1 class="$heading_class">$title</h1>
 
         $msg_html
 
@@ -322,25 +372,25 @@ h1{
         <div class="partner-content">
 
             <div class="partner-badge">
-                💜 BECOME A PARTNER
+                &#10024; BECOME A PARTNER
             </div>
 
             <h2>
-                List your business from ₹49 / 7 days
+                List your business from &#8377;49 / 7 days
             </h2>
 
             <p>
-                Plans: ₹49 / 7d · ₹99 / 15d · ₹199 / 30d · +₹50 per 15 days · ₹1,299 / year (Best Value) · Street Vendors Free
+                Plans: &#8377;49 / 7d &middot; &#8377;99 / 15d &middot; &#8377;199 / 30d &middot; +&#8377;50 per 15 days &middot; &#8377;1,299 / year (Best Value) &middot; Street Vendors Free
             </p>
 
             <a href="#" class="partner-btn">
-                View Plans →
+                View Plans &#8594;
             </a>
 
         </div>
 
         <div class="partner-rocket">
-            🚀
+            &#128640;
         </div>
 
     </div>

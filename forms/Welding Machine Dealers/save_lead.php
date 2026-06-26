@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmt) {
             $stmt->bind_param("ssssssssssissd", $name, $mobile, $email, $city, $pincode, $locality, $machine_type, $power_capacity, $application, $brand, $quantity, $requirements, $preferred_time, $budget);
             if ($stmt->execute()) {
-                show_response_page(true, "Lead Saved Successfully", "Thank you! Your quote request has been received. Our partner providers will contact you shortly.");
+                show_response_page(true, "Request sent!", "Your enquiry for " . ucwords(str_replace('_', ' ', preg_replace('/_leads$/', '', $table_name))) . " has been received. A verified provider will reach out to you shortly.");
             } else {
                 show_response_page(false, "Database Error", "Unable to save your request. Error: " . $stmt->error);
             }
@@ -137,9 +137,10 @@ function show_response_page($success, $title, $messages) {
     } else {
         $msg_html = '<div class="success-box">' . htmlspecialchars($messages) . '</div>';
     }
-    
-    $status_icon = $success ? '💜' : '❌';
-    
+
+    $status_icon = $success ? '&check;' : '&#10060;';
+    $heading_class = $success ? 'success-title' : 'error-title';
+
     echo <<<HTML
 <!DOCTYPE html>
 <html lang="en">
@@ -148,76 +149,254 @@ function show_response_page($success, $title, $messages) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>$title - Nazdeek</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
         }
-        .response-card {
-            background: white;
-            border-radius: 16px;
-            padding: 40px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
+
+        body{
+            background:#f5f5f5;
+            color:#1f2937;
         }
-        .icon {
-            font-size: 60px;
-            margin-bottom: 20px;
+
+        .header{
+            background:linear-gradient(90deg,#7c3aed,#6d28d9);
+            color:white;
+            padding:18px 20px;
+            display:flex;
+            align-items:center;
+            gap:14px;
         }
-        h1 {
-            color: #4c1d95;
-            margin-bottom: 15px;
-            font-size: 28px;
+
+        .back-btn{
+            color:white;
+            text-decoration:none;
+            font-size:24px;
+            line-height:1;
         }
-        .message-list {
-            text-align: left;
-            background: #fdf2f8;
-            border-left: 4px solid #db2777;
-            padding: 15px 15px 15px 35px;
-            border-radius: 8px;
-            margin: 20px 0;
-            color: #9d174d;
+
+        .logo{
+            font-size:18px;
+            font-weight:700;
         }
-        .success-box {
-            background: #fdf4ff;
-            border: 1px solid #f3e8ff;
-            color: #6b21a8;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            font-size: 16px;
-            line-height: 1.5;
+
+        .container{
+            max-width:900px;
+            margin:30px auto;
+            padding:0 15px;
         }
-        .btn {
-            display: inline-block;
-            background: #7c3aed;
-            color: white;
-            text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: background 0.2s;
-            margin-top: 15px;
+
+        .response-card{
+            background:#fff;
+            border-radius:20px;
+            padding:50px;
+            text-align:center;
+            box-shadow:0 4px 20px rgba(0,0,0,.08);
         }
-        .btn:hover {
-            background: #6d28d9;
+
+        .icon{
+            width:90px;
+            height:90px;
+            margin:0 auto 25px;
+            background:#22c55e;
+            color:white;
+            border-radius:16px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:55px;
+            box-shadow:0 4px 15px rgba(34,197,94,.35);
+        }
+
+        .error-title{
+            color:#db2777;
+        }
+
+        .success-title{
+            color:#059669;
+        }
+
+        h1{
+            font-size:42px;
+            margin-bottom:20px;
+        }
+
+        .success-box{
+            color:#374151;
+            font-size:20px;
+            line-height:1.7;
+        }
+
+        .message-list{
+            background:#fdf2f8;
+            border-left:4px solid #db2777;
+            padding:15px 15px 15px 35px;
+            border-radius:8px;
+            text-align:left;
+            color:#9d174d;
+            line-height:1.6;
+        }
+
+        .button-group{
+            margin-top:30px;
+            display:flex;
+            justify-content:center;
+            gap:15px;
+            flex-wrap:wrap;
+        }
+
+        .btn-primary{
+            background:#7c3aed;
+            color:white;
+            text-decoration:none;
+            padding:14px 28px;
+            border-radius:12px;
+            font-weight:bold;
+        }
+
+        .btn-secondary{
+            border:2px solid #d8b4fe;
+            color:#6d28d9;
+            text-decoration:none;
+            padding:14px 28px;
+            border-radius:12px;
+            font-weight:bold;
+            background:white;
+        }
+
+        .partner-footer{
+            margin-top:25px;
+            background:linear-gradient(135deg,#7c3aed,#4c1d95);
+            border-radius:20px;
+            padding:30px;
+            color:white;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:20px;
+        }
+
+        .partner-badge{
+            display:inline-block;
+            background:rgba(255,255,255,.15);
+            padding:8px 14px;
+            border-radius:20px;
+            margin-bottom:15px;
+            font-weight:bold;
+        }
+
+        .partner-footer h2{
+            margin-bottom:10px;
+            font-size:28px;
+        }
+
+        .partner-footer p{
+            line-height:1.7;
+        }
+
+        .partner-btn{
+            display:inline-block;
+            margin-top:20px;
+            background:white;
+            color:#5b21b6;
+            text-decoration:none;
+            padding:12px 24px;
+            border-radius:30px;
+            font-weight:bold;
+        }
+
+        .partner-rocket{
+            font-size:80px;
+        }
+
+        @media (max-width:768px){
+            .container{
+                margin:20px auto;
+            }
+
+            .response-card{
+                padding:35px 20px;
+            }
+
+            h1{
+                font-size:32px;
+            }
+
+            .success-box{
+                font-size:17px;
+            }
+
+            .partner-footer{
+                flex-direction:column;
+                text-align:center;
+            }
+
+            .partner-footer h2{
+                font-size:24px;
+            }
+
+            .partner-rocket{
+                font-size:55px;
+            }
         }
     </style>
 </head>
 <body>
+
+<div class="header">
+    <a href="javascript:history.back()" class="back-btn">&#8592;</a>
+    <span class="logo">Nazdeek</span>
+</div>
+
+<div class="container">
+
     <div class="response-card">
+
         <div class="icon">$status_icon</div>
-        <h1>$title</h1>
+
+        <h1 class="$heading_class">$title</h1>
+
         $msg_html
-        <br>
-        <a href="index.html" class="btn">← Back to Form</a>
+
+        <div class="button-group">
+            <a href="/" class="btn-primary">Browse more services</a>
+            <a href="#" class="btn-secondary">My dashboard</a>
+        </div>
+
     </div>
+
+    <div class="partner-footer">
+
+        <div class="partner-content">
+
+            <div class="partner-badge">
+                &#10024; BECOME A PARTNER
+            </div>
+
+            <h2>
+                List your business from &#8377;49 / 7 days
+            </h2>
+
+            <p>
+                Plans: &#8377;49 / 7d &middot; &#8377;99 / 15d &middot; &#8377;199 / 30d &middot; +&#8377;50 per 15 days &middot; &#8377;1,299 / year (Best Value) &middot; Street Vendors Free
+            </p>
+
+            <a href="#" class="partner-btn">
+                View Plans &#8594;
+            </a>
+
+        </div>
+
+        <div class="partner-rocket">
+            &#128640;
+        </div>
+
+    </div>
+
+</div>
+
 </body>
 </html>
 HTML;
