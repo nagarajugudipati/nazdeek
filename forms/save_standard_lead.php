@@ -212,8 +212,8 @@ h1{font-size:42px;margin-bottom:20px}
         <h1 class="$heading_class">$title</h1>
         $msg_html
         <div class="button-group">
-            <a href="/" class="btn-primary">Browse more services</a>
-            <a href="#" class="btn-secondary">My dashboard</a>
+            <a href="https://www.nazdeek.in/services_catalog.php" class="btn-primary">Browse more services</a>
+            <a href="https://www.nazdeek.in/client_dashboard.php" class="btn-secondary">My dashboard</a>
         </div>
     </div>
     <div class="partner-footer">
